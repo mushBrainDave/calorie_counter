@@ -1,0 +1,12 @@
+Django
+django-cors-headers
+six
+django-filter
+djangorestframework
+djangorestframework-jwt
+djoser
+PyJWT
+pytz
+psycopg2
+gunicorn
+django-heroku
