@@ -15,7 +15,7 @@ def setting_list(request):
     if request.method == 'GET':
         setting = Setting.objects.filter(user=request.user)
         serializer = SettingSerializer(setting, context={'request': request}, many=True)
-        return Response({'data': serializer.data})
+        return Response(serializer.data)
 
     elif request.method == 'POST':
         serializer = SettingSerializer(data=request.data)
