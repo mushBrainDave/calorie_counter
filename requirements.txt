@@ -5,7 +5,7 @@ django-filter
 djangorestframework
 djangorestframework-jwt
 djoser
-PyJWT
+PyJWT = 1.7.1
 pytz
 psycopg2
 gunicorn
