@@ -14,7 +14,7 @@ def setting_list(request):
     permission_classes = (IsAuthenticatedOrReadOnly)
     if request.method == 'GET':
         setting = Setting.objects.filter(user=request.user)
-        serializer = SettingSerializer(setting, context={'request': request}, many=True)
+        serializer = SettingSerializer(setting, context={'request': request})
         return Response(serializer.data)
 
     elif request.method == 'POST':
