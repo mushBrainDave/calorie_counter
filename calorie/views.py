@@ -8,30 +8,13 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
 
 
-@csrf_exempt
-@api_view(['GET', 'POST'])
-def setting_list(request):
-    permission_classes = (IsAuthenticatedOrReadOnly)
-    if request.method == 'GET':
-        setting = Setting.objects.get(user=request.user)
-        serializer = SettingSerializer(setting, context={'request': request})
-        return Response(serializer.data)
-
-    elif request.method == 'POST':
-        serializer = SettingSerializer(data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-
-@api_view(['GET', 'PUT', 'DELETE'])
-def getSetting(request, pk):
+@api_view(['GET', 'PUT'])
+def getSetting(request):
     """
     Retrieve, update or delete a customer instance.
     """
     try:
-        settings = Setting.objects.get(pk=pk)
+        settings = Setting.objects.get(pk=request.user.id)
     except Setting.DoesNotExist:
         return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -46,10 +29,6 @@ def getSetting(request, pk):
             serializer.save()
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-    elif request.method == 'DELETE':
-        settings.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)
 
 
 @csrf_exempt
